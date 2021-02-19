@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fixed相对于谁定位</title>
+    <style>
+      body {
+        display: flex;
+        flex: 1;
+      }
+      .container {
+        width: 300px;
+        height: 200px;
+        background-color: aqua;
+      }
+
+      .transform {
+        transform: translateX(50%);
+      }
+
+      .fixed {
+        /* width: 50px;
+        height: 50px; */
+        background-color: aquamarine;
+        position: fixed;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      子元素 position:fixed; bottom:0
+      <div class="fixed">常规情况下的fixed相对于屏幕视口定位</div>
+    </div>
+
+    <div class="container transform">
+      子元素position:fixed; bottom:0
+      <div class="fixed">
+        当元素祖先设置了 transform / perspective / filter 属性，相对于祖先定位
+      </div>
+    </div>
+  </body>
+</html>
