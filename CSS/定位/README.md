@@ -31,13 +31,46 @@
 
     元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。
 
-  + `fixed` 属性会创建新的层叠上下文。当元素祖先的 `transform`, `perspective` 或 `filter` 属性非 `none` 时，**相对其祖先元素定位**。
+  + `fixed` 属性会创建新的层叠上下文。当元素祖先的 `transform`, `perspective` 或 `filter` 属性非 `none` 时，**相对其祖先元素定位**。([查看 demo](https://github.com/Nicklaus6/knowledge-system/blob/master/CSS/%E5%AE%9A%E4%BD%8D/fixed%E7%9B%B8%E5%AF%B9%E4%BA%8E%E8%B0%81%E5%AE%9A%E4%BD%8D.html))
 
 + `sticky`
 
   + 可以说是 **相对定位** 和 **固定定位** 的混合。元素在 **跨越特定阈值前为相对定位** ，**之后为固定定位**
   + 元素根据 **文档流** 进行定位（relative），然后相对它的 **最近滚动祖先和最近块级祖先** （包括table-related元素）进行定位（fixed）。偏移值不会影响任何其他元素的位置。
   + **必须指定 `top`, `right`, `bottom`, `left` 至少其中之一**，才生效。否则其行为与相对定位相同。
-  + 该值总是 **创建一个新的层叠上下文** 。一个 sticky 元素会”固定“在离它最近的一个拥有“滚动机制”的祖先上。当该 **祖先元素的`overflow` 是 `visible`以外的值** 时（即便这个祖先不是最近的真实可滚动祖先），**sticky 将无效**。
-  + *当祖先元素的 `height`值 = 粘性定位元素高度，也没有粘滞效果。
+  + 该值总是 **创建一个新的层叠上下文** 。一个 sticky 元素会”固定“在离它最近的一个拥有“滚动机制”的祖先上。当该 **祖先元素的`overflow` 是 `visible`以外的值时** ，**sticky 将无效**（即便这个祖先不是最近的真实可滚动祖先）。
+  + 当 `祖先元素的 height值 = 粘性定位元素高度`，也 **没有粘滞效果**。
+
+## 总结
+
++ `static` 、`relative` 和 跨越阈值前的 `sticky` 都处于 **普通文档流** 。
+
+  `absolute` 、`fixed` 和 跨越阈值后的 `sticky` **脱离文档流** 。
+
+  
+
++ `relative` 相对于 **其正常位置** 定位。
+
+  `absolute` 相对于 **最近的非 static 定位的祖先元素** 定位。
+
+  `fixed` 相对于 **屏幕视口** 定位，如果祖先元素设置了 transform、perspective 、filter 属性，相对于 **祖先元素** 定位。
+
+  `sticky` 根据文档流进行定位，然后相对于 **最近的滚动祖先和最近的块级祖先** 进行定位。
+
+  
+
++ `fixed` 和 `sticky` 会 **创建新的层叠上下文** 。
+
+
+
+## 参考
+
++ [MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#%E8%AF%AD%E6%B3%95)
++ [杀了个回马枪，还是说说position:sticky吧](https://www.zhangxinxu.com/wordpress/2018/12/css-position-sticky/)
+
+  
+
+  
+
+  
 
