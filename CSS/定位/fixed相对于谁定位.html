@@ -10,33 +10,59 @@
         display: flex;
         flex: 1;
       }
+
       .container {
-        width: 300px;
+        width: 400px;
         height: 200px;
         background-color: aqua;
       }
 
-      .transform {
-        transform: translateX(50%);
+      .container--transform {
+        transform: rotateZ(30deg);
+        -webkit-transform: rotateZ(30deg);      
+      }
+
+      .container--perspective {
+        -webkit-perspective: 200;  /* Safari and Chrome */
+        perspective: 200;
+      }
+
+      .container--filter {
+        -webkit-filter: blur(1px) brightness(95%) grayscale(5%); /* Chrome, Safari, Opera */
+        filter: blur(1px) brightness(95%) grayscale(5%);
       }
 
       .fixed {
-        /* width: 50px;
-        height: 50px; */
         background-color: aquamarine;
         position: fixed;
         bottom: 0;
+        -webkit-transform: rotateX(45deg); /* Safari and Chrome */
+        transform: rotateX(45deg); /* 让 perspective 生效*/
       }
     </style>
   </head>
   <body>
     <div class="container">
-      子元素 position:fixed; bottom:0
+      子元素position:fixed; bottom:0
       <div class="fixed">常规情况下的fixed相对于屏幕视口定位</div>
     </div>
 
-    <div class="container transform">
-      子元素position:fixed; bottom:0
+    <div class="container container--transform">
+      子元素 transform: rotateZ(30deg);
+      <div class="fixed">
+        当元素祖先设置了 transform / perspective / filter 属性，相对于祖先定位
+      </div>
+    </div>
+
+    <div class="container container--perspective">
+      子元素 perspective: 200;
+      <div class="fixed">
+        当元素祖先设置了 transform / perspective / filter 属性，相对于祖先定位
+      </div>
+    </div>
+
+    <div class="container container--filter">
+      子元素 filter: blur(20) brightness(30);
       <div class="fixed">
         当元素祖先设置了 transform / perspective / filter 属性，相对于祖先定位
       </div>
