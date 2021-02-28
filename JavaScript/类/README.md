@@ -1,5 +1,6 @@
 # 类
-> *在面向对象的编程中，**class** 是用于 **创建对象的可扩展的程序代码模版**，它为对象提供了状态（成员变量）的初始值和行为（成员函数或方法）的实现。* —— Wikipedia
+
+> _在面向对象的编程中，**class** 是用于 **创建对象的可扩展的程序代码模版**，它为对象提供了状态（成员变量）的初始值和行为（成员函数或方法）的实现。_ —— Wikipedia
 
 ## JS 中类的由来
 
@@ -32,7 +33,7 @@ class Point {
     this.x = x;
     this.y = y;
   }
-  
+
   toString() {
     return '(' + this.x + ', ' + this.y + ')';
   }
@@ -64,14 +65,13 @@ class MyClass {
 
 ```javascript
 class User {
-	constructor(name) {
+  constructor(name) {
     this.name = name;
   }
-  
+
   sayHi() {
     alert(this.name);
   }
-  
 }
 
 // 用法：
@@ -88,7 +88,7 @@ user.sayHi();
 
 注意：**类的方法之间没有逗号**。
 
-### 取值函数 `getters` / 存值函数 `setters` 
+### 取值函数 `getters` / 存值函数 `setters`
 
 就像对象字面量，类可能包括 `getters` / `setters` ，计算属性（computed properties）等。
 
@@ -100,14 +100,14 @@ class User {
     // 调用 setter
     this.name = name;
   }
-  
+
   get name() {
     return this._name;
   }
-  
+
   set name(value) {
     if (value.length < 4) {
-      alert("Name is too short.");
+      alert('Name is too short.');
       return;
     }
     this._name = value;
@@ -117,7 +117,7 @@ class User {
 let user = new User('JJ');
 alert(user.name); // JJ
 
-user = new User('') // Name is too short.
+user = new User(''); // Name is too short.
 ```
 
 从技术上来讲，这样的类声明可以通过在 `User.prototype` 中创建 getters 和 setters 来实现。
@@ -129,7 +129,7 @@ user = new User('') // Name is too short.
 ```js
 class User {
   ['say' + 'Hi']() {
-    alert('Hello')
+    alert('Hello');
   }
 }
 
@@ -150,7 +150,7 @@ new User().sayHi(); // Hello
 
 ```js
 class User {
-  name = "John";
+  name = 'John';
 
   sayHi() {
     alert(`Hello, ${this.name}!`);
@@ -166,7 +166,7 @@ new User().sayHi(); // Hello, John!
 
 ```javascript
 class User {
-  name = "John";
+  name = 'John';
 }
 
 let user = new User();
@@ -178,7 +178,7 @@ alert(User.prototype.name); // undefined
 
 ```javascript
 class User {
-  name = prompt("Name, please?", "John");
+  name = prompt('Name, please?', 'John');
 }
 
 let user = new User();
@@ -193,8 +193,12 @@ alert(user.name); // John
 
 ```js
 class User {
-  constructor(name) { this.name = name; }
-  sayHi() { alert(this.name); }
+  constructor(name) {
+    this.name = name;
+  }
+  sayHi() {
+    alert(this.name);
+  }
 }
 
 // 佐证：User 是一个函数
@@ -232,9 +236,7 @@ alert(User.prototype.sayHi)
 alert(Object.getOwnPropertyNames(User.prototype)); // ["constructor", "sayHi"]
 ```
 
-
-
-## class和构造函数的区别
+## class 和构造函数的区别
 
 人们常说 `class` 是一个语法糖（旨在使内容更易阅读，但不引入任何新内容的语法），因为我们实际上可以在没有 `class` 的情况下声明相同的内容：
 
@@ -249,12 +251,12 @@ function User(name) {
 // 所以，我们不需要创建它
 
 // 2. 将方法添加到原型
-User.prototype.sayHi = function() {
+User.prototype.sayHi = function () {
   alert(this.name);
 };
 
 // 用法：
-let user = new User("John");
+let user = new User('John');
 user.sayHi();
 ```
 
@@ -270,7 +272,7 @@ user.sayHi();
 
 ```js
 class User {
-	constructor() {}
+  constructor() {}
 }
 
 alert(typeof User); // function
@@ -302,8 +304,8 @@ alert(User); // class User { ... }
 类不存在变量提升（hoist），这一点与 ES5 完全不同。
 
 ```javascript
-new Foo(); 
-class Foo {};
+new Foo();
+class Foo {}
 // Uncaught ReferenceError: Foo is not defined
 ```
 
@@ -311,14 +313,15 @@ class Foo {};
 
 ```javascript
 {
-	let Foo = class {};
-	class Bar extends Foo {}
+  let Foo = class {};
+  class Bar extends Foo {}
 }
 ```
 
 上面的代码不会报错，因为`Bar`继承`Foo`的时候，`Foo`已经有定义了。但是，如果存在`class`的提升，上面代码就会报错，因为`class`会被提升到代码头部，而`let`命令是不提升的，所以导致`Bar`继承`Foo`的时候，`Foo`还没有定义。
 
 ## 类定义
+
 与函数类型相似，定义类也有两种主要方式：类声明和类表达式。这两种方式都使用 class 关键字加大括号：
 
 ```javascript
@@ -327,9 +330,6 @@ class Person {}
 // 类表达式
 const Animal = class {};
 ```
-
-
-
 
 ## 注意点
 
@@ -342,8 +342,8 @@ const Animal = class {};
 类不存在变量提升（hoist），这一点与 ES5 完全不同。
 
 ```javascript
-new Foo(); 
-class Foo {};
+new Foo();
+class Foo {}
 // Uncaught ReferenceError: Foo is not defined
 ```
 
@@ -351,8 +351,8 @@ class Foo {};
 
 ```javascript
 {
-	let Foo = class {};
-	class Bar extends Foo {}
+  let Foo = class {};
+  class Bar extends Foo {}
 }
 ```
 
@@ -364,12 +364,12 @@ class Foo {};
 
 ```javascript
 class Point {}
-Point.name // "Point"
+Point.name; // "Point"
 ```
 
 `name`属性总是返回紧跟在`class`关键字后面的类名。
 
-### 4. 丢失 this 
+### 4. 丢失 this
 
 正如 [函数绑定](https://zh.javascript.info/bind) 一章中所讲的，JavaScript 中的函数具有动态的 `this`。**它取决于调用上下文。**
 
@@ -403,9 +403,9 @@ printName(); // TypeError: Cannot read property 'print' of undefined
 class Logger {
   // 在构造函数中绑定 this
   constructor() {
-    this.printName = this.printName.bind(this)
+    this.printName = this.printName.bind(this);
   }
-  
+
   printName(name = 'there') {
     this.print(`Hello ${name}`);
   }
@@ -429,9 +429,9 @@ class Logger {
   printName = (name = 'there') => {
     console.log(this); // Logger {printName: ƒ}
     this.print(`Hello ${name}`);
-  }
-  
-	print(text) {
+  };
+
+  print(text) {
     console.log(text);
   }
 }
@@ -445,23 +445,23 @@ printName(); // Hello there
 
 ## 总结
 
-+ ES6 的类是 ES5 用构造函数创建对象模板的语法糖，更加面向对象编程。
+- ES6 的类是 ES5 用构造函数创建对象模板的语法糖，更加面向对象编程。
 
-+ `class` 语法如下：
+- `class` 语法如下：
 
   ```javascript
   class MyClass {
     prop = value; // 属性
-  	
+
   	constructor(...) { // 构造器
       // ...
     }
-    
+
     method(...) {} // method
-    
+
     get something(...) {} // getter 方法
     set something(...) {} // setter 方法
-    
+
     [Symbol.iterator]() {} // 有计算名称（computed name）的方法（此处为 symbol）
   	// 。。。
   }
@@ -469,32 +469,32 @@ printName(); // Hello there
 
   类的方法之间没有逗号。
 
-+ 类字段 `prop = value` 直接将属性添加到对象上，而不是对象的原型上。
+- 类字段 `prop = value` 直接将属性添加到对象上，而不是对象的原型上。
 
-+ **类的数据类型是函数，类的本身指向构造函数。**
+- **类的数据类型是函数，类的本身指向构造函数。**
 
-+ 类的所有方法都定义在类的 `prototype` 属性上。
+- 类的所有方法都定义在类的 `prototype` 属性上。
 
-+ 类不止是语法糖，和普通构造函数的区别如下：
+- 类不止是语法糖，和普通构造函数的区别如下：
 
-  + `class` 创建的函数有特殊内部属性，因此 **必须使用 `new` 来调用**
-  + 类方法 **不可枚举**
-  + 类使用 **严格模式**
-  + 类 **不存在变量提升**
-  
-+ 类有两种定义方式：
+  - `class` 创建的函数有特殊内部属性，因此 **必须使用 `new` 来调用**
+  - 类方法 **不可枚举**
+  - 类使用 **严格模式**
+  - 类 **不存在变量提升**
 
-  + 类声明 `class Foo {}`
-  + 类表达式 `const animal = class {}`
+- 类有两种定义方式：
 
-+ 函数的许多特性都被 `Class` 继承，包括 `name` 属性。
+  - 类声明 `class Foo {}`
+  - 类表达式 `const animal = class {}`
 
-+ 类的方法中的 `this` 指向实例，但是单独使用该方法可能会报错，**`this`会指向该方法运行所在的环境** ，因为 `class`  使用严格模式，所以  `this` 是 `undefined`。解决方法：
+- 函数的许多特性都被 `Class` 继承，包括 `name` 属性。
 
-  + 方法一：在构造函数中绑定 `this`
-  + 方法二：使用箭头函数
+- 类的方法中的 `this` 指向实例，但是单独使用该方法可能会报错，**`this`会指向该方法运行所在的环境** ，因为 `class` 使用严格模式，所以 `this` 是 `undefined`。解决方法：
+
+  - 方法一：在构造函数中绑定 `this`
+  - 方法二：使用箭头函数
 
 ## 参考
 
-+ [现代JS教程——Class 基本语法](https://zh.javascript.info/class#getterssetters)
-+ [ES6入门——Class 的基本语法](https://es6.ruanyifeng.com/#docs/class)
+- [现代 JS 教程——Class 基本语法](https://zh.javascript.info/class#getterssetters)
+- [ES6 入门——Class 的基本语法](https://es6.ruanyifeng.com/#docs/class)
