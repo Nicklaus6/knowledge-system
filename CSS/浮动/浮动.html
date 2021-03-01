@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        background-color: palegreen;
+      }
+      .float {
+        float: left;
+        background-color: plum;
+      }
+      .float-container {
+        border: 2px solid #333;
+      }
+      .clearfix {
+        zoom: 1; /* ie6 7 不支持伪元素 所以要激发 haslayout */
+      }
+      .clearfix:after {
+        content: '';
+        display: block;
+        clear: both;
+        /* width: 0px;
+        height: 0px;
+
+        line-height: 0;
+        visibility: hidden; 允许浏览器渲染它，但是不显示 */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>浮动会脱离文档流，不占位，导致以下问题</h1>
+
+    <h2>问题1：浮动元素同级的非浮动元素会跟随其后</h2>
+
+    <div>我没浮动</div>
+    <p>我是和浮动同级的非浮动P元素</p>
+
+    <div class="float">我浮动了</div>
+    <p>我是和浮动同级的非浮动P元素</p>
+
+    <div style="height: 200px">
+      要是没有我 后面的h2就跟上来了。🙄我的上面部分还被浮动那家伙挡住了，晕
+    </div>
+
+    <h2>问题2：高度塌陷</h2>
+    <div class="float-container">
+      <div class="float" style="width: 200px; height: 200px">
+        我浮动了，我没撑开容器。这就是高度塌陷。解决的办法就叫清除浮动。
+      </div>
+    </div>
+
+    <div style="height: 200px">
+      要是没有我 后面的h2就跟上来了。🙄我的上面部分还被浮动那家伙挡住了，晕
+    </div>
+
+    <h1>清除浮动的方法</h1>
+
+    <h2>1.给浮动元素的父容器添加伪元素（强烈推荐）</h2>
+    <div class="float-container clearfix">
+      <div class="float" style="width: 200px; height: 200px">
+        我浮动了，我没撑开容器。这就是高度塌陷。解决的办法就叫清除浮动。
+      </div>
+    </div>
+
+    <div style="height: 200px">
+      要是没有我 后面的h2就跟上来了。🙄我的上面部分还被浮动那家伙挡住了，晕
+    </div>
+
+    <h4>
+      给浮动元素的父元素末尾添加一个看不见的块元素来清理浮动。这是通用的清理浮动方案.
+    </h4>
+
+    <h2>2.给浮动元素的父容器添加 overflow:hidden</h2>
+    <div class="float-container" style="overflow: hidden">
+      <div class="float" style="width: 200px; height: 200px">
+        我浮动了，我没撑开容器。这就是高度塌陷。解决的办法就叫清除浮动。
+      </div>
+    </div>
+
+    <div style="height: 200px">
+      要是没有我 后面的h2就跟上来了。🙄我的上面部分还被浮动那家伙挡住了，晕
+    </div>
+
+    <h4>这种方法的原理是父容器形成了BFC。</h4>
+    <h4>
+      但这种办法有个缺陷：如果有内容出了盒子，用这种方法就会把多的部分裁切掉，所以这时候不能使用。
+    </h4>
+
+    <h2>3.给浮动元素的父容器设置高度(扩展性差)</h2>
+    <div class="float-container" style="height: 200px">
+      <div class="float" style="width: 200px; height: 200px">
+        我浮动了，我没撑开容器。这就是高度塌陷。解决的办法就叫清除浮动。
+      </div>
+    </div>
+
+    <div style="height: 200px">
+      要是没有我 后面的h2就跟上来了。🙄我的上面部分还被浮动那家伙挡住了，晕
+    </div>
+
+    <h2>4.最后一个浮动元素后面加一个空div，并设置clear: both(多余元素)</h2>
+    <div class="float-container">
+      <div class="float" style="width: 200px; height: 200px">
+        我浮动了，我没撑开容器。这就是高度塌陷。解决的办法就叫清除浮动。
+      </div>
+      <div style="clear: both"></div>
+    </div>
+
+    <div style="height: 200px">
+      要是没有我 后面的h2就跟上来了。🙄我的上面部分还被浮动那家伙挡住了，晕
+    </div>
+
+    <h2>
+      5.给浮动元素后添加br标签，并设置clear="all"（IE6不支持，违反了结构行为样式相分离的原则）
+    </h2>
+    <div class="float-container">
+      <div class="float" style="width: 200px; height: 200px">
+        我浮动了，我没撑开容器。这就是高度塌陷。解决的办法就叫清除浮动。
+      </div>
+      <br clear="all" />
+    </div>
+
+    <div style="height: 200px">
+      要是没有我 后面的h2就跟上来了。🙄我的上面部分还被浮动那家伙挡住了，晕
+    </div>
+  </body>
+</html>
