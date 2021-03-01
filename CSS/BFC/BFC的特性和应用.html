@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BFC的特性和应用</title>
+    <style>
+      div {
+        background: lightblue;
+        margin: 100px;
+      }
+
+      .setBFC {
+        display: flow-root;
+      }
+
+      .float-container {
+        border: 2px solid #333;
+      }
+      .float {
+        float: left;
+        width: 200px;
+        height: 100px;
+        margin:0;
+        background-color: beige;
+      }
+    </style>
+  </head>
+  <body>
+    <!--1. 同一个 BFC 下外边距会发生重叠  -->
+    <h1>1. 同一个 BFC 下外边距会发生重叠</h1>
+    
+    <div>1. 同一个 BFC 下外边距会发生重叠</div>
+    <div>1. 同一个 BFC 下外边距会发生重叠</div>
+
+    <p>两个盒子之间的距离应该是200，但却是100</p>
+    <p>这是因为两个盒子处于同一个BFC，外边距发生了重叠</p>
+    <p>解决：将他们放在不同的BFC中就可以了</p>
+
+    <div>1. 同一个 BFC 下外边距会发生重叠</div>
+    <div class="setBFC" style="display: inline-block;" >display:inline-block; 触发BFC。此时距离正确，为200</div>
+    <h3>为什么这里 overflow:hidden 和 display: flow-root 没有用，因为他们都是用在父元素上的。</h3>
+
+    <!--2. 容器触发 BFC 可以包含浮动的元素(清除浮动)  -->
+    <h1>2. 容器触发 BFC 可以包含浮动的元素(解决高度塌陷，清除浮动)</h1>
+    <h3>当我们不给父节点设置高度，子节点设置浮动的时候，会发生高度塌陷，这个时候我们就要清除浮动。</h3>
+    <div class="float-container">
+      <div class="float">容器内的元素浮动，脱离文档流</div>
+    </div>
+
+    <div class="float-container setBFC">
+      2. 容器触发BFC可以包含浮动元素（清除浮动）
+      <div class="float">
+        容器触发BFC即可包裹浮动元素.这里容器通过 display: flow-root; 触发了BFC
+      </div>
+    </div>
+
+    <!-- 3. BFC 可以阻止元素被浮动元素覆盖，实现两列自适应布局 -->
+    <h1>3. BFC 可以阻止元素被浮动元素覆盖，实现两列自适应布局</h1>
+    <div class="float" style="margin: 0">我是一个左浮动元素。</div>
+    <div style=" width: 300px;height: 300px; margin: 0">
+      我是一个没有设置浮动, 也没有触发 BFC 的元素 width: 300px; height: 300px
+      我的一部分被浮动元素覆盖了555
+    </div>
+
+    <div class="float" style="margin: 0">我是一个左浮动元素。</div>
+    <div class="setBFC" style="height: 300px; margin: 0">
+      3. 现在通过 display: flow-root; 触发了BFC 阻止了被浮动元素覆盖,可以实现两列自适应布局。
+    </div>
+    <p>
+      这个方法可以用来实现两列自适应布局，这时候左边的宽度固定，右边的内容自适应宽度。
+    </p>
+
+  </body>
+</html>
