@@ -32,7 +32,6 @@ let dailyTemperatures = function (T) {
     // 存入下标
     stack.push(i);
   }
-  console.log(res);
   return res;
 };
 
