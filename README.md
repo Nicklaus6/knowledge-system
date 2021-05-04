@@ -13,8 +13,10 @@
 - [ ] HTML
 - [ ] CSS
 - [ ] JavaScript
+- [ ] TypeScript
 - [ ] 框架
   - [ ] Vue
+  - [ ] React
 - [ ] 网络
 - [ ] 浏览器
 - [ ] 性能优化
