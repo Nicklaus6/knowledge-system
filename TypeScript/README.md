@@ -47,18 +47,5 @@ TypeScript 还可以和 JavaScript 共存。这意味着如果你有一个使用
 + TypeScript 增强了编辑器（IDE）的功能，提供了代码补全、接口提示、跳转到定义、代码重构等能力。
 + TypeScript 拥有活跃的社区，大多数常用的第三方库都提供了类型声明。
 + TypeScript 与标准同步发展，符合最新的 ECMAScript 标准（stage 3）。
-
-## 知识点
-- [ ] 数据类型
-- [ ] 作用域和作用域链
-- [ ] this
-- [ ] 闭包
-- [ ] 原型和原型链
-- [ ] 继承
-- [ ] 类
-- [ ] 异步编程
-- [ ] 事件循环机制
-- [ ] 数组方法
-
 ## 参考
 [TypeScript 入门教程](https://ts.xcatliu.com/introduction/what-is-typescript.html)
